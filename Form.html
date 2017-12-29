@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <title>Feedback</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <style>
+    label {	float: left;
+			width: 150px;}
+      #container{
+          width: 700px;
+          margin: auto;
+          background-color: beige;
+      } 
+      main{
+          padding: 50px;
+      }
+	  span{
+		  color: red;
+	  }
+  </style>
+ </head>
+ <script>
+
+	$(document).ready(function(){
+		var firstNameError = false;
+		var lastNameError = false;
+		var emailError = false;
+		var phoneError = false;
+		var zipError = false;
+		var commentsError = false;
+
+		var regExName = /^[a-zA-Z]+$/;	 
+		var regExEmail = /([\w\.]+)@([\w\.]+)\.(\w+)/;
+		var regExPhone = /\d{3}-?\d{3}-\d{4}$/;
+
+		$("#firstName").focusout(function(){
+			var firstName = $("#firstName").val();
+			if(firstName == ""){
+				$("#firstNameErrorMessage").html("Please enter your first name! ");
+				$("#firstNameErrorMessage").show();
+				$("#firstName").css({"border" : "2px solid red"});
+				firstNameError = true;
+			}else if(!firstName.match(regExName)){
+				$("#firstNameErrorMessage").html("Invalid first name, only text value permitted!");
+				$("#firstNameErrorMessage").show();
+			}else{
+				$("#firstNameErrorMessage").hide();
+				$("#firstName").css({"border" : "2px solid green"});
+			}
+		});
+
+		$("#lastName").focusout(function(){
+			var lastName = $("#lastName").val();
+			if(lastName == ""){
+				$("#lastNameErrorMessage").html("Please enter your last name! ");
+				$("#lastNameErrorMessage").show();
+				$("#lastName").css({"border" : "2px solid red"});
+				lastNameError = true;
+			}else if(!lastName.match(regExName)){
+				$("#lastNameErrorMessage").html("Invalid last name, only text value permitted!")
+				$("#lastNameErrorMessage").show();
+			}else{
+				$("#lastNameErrorMessage").hide();
+				$("#lastName").css({"border" : "2px solid green"});
+			}
+		});
+
+		$("#emailId").focusout(function(){
+			var emailId = $("#emailId").val();
+			if(emailId == ""){
+				$("#emailErrorMessage").html("Please enter your last name! ");
+				$("#emailErrorMessage").show();
+				$("#emailId").css({"border" : "2px solid red"});
+				emailError = true;
+			}else if(!emailId.match(regExEmail)){
+				$("#emailErrorMessage").html("Invalid email id!");
+				$("#emailErrorMessage").show();
+			} else{
+				$("#emailErrorMessage").hide();
+				$("#emailId").css({"border" : "2px solid green"});
+			}
+		});
+
+		$("#phoneNumber").focusout(function(){
+			var phoneNumber = $("#phoneNumber").val();
+			if(phoneNumber == ""){
+				$("#phoneErrorMessage").html("Please enter your phone number!");
+				$("#phoneErrorMessage").show();
+				$("#phoneNumber").css({"border" : "2px solid red"});
+				phoneError = true;
+			}else if(!phoneNumber.match(regExPhone)){
+				$("#phoneErrorMessage").html("Invalid phone number! Formate should be xxx-xxx-xxxx");
+				$("#phoneErrorMessage").show();
+			} else{ 
+				$("#phoneErrorMessage").hide();
+				$("#phoneNumber").css({"border" : "2px solid green"});
+			}
+		});
+
+		$("#zipcode").focusout(function(){
+			var zipcode = $("#zipcode").val();
+			if(zipcode == ""){
+				$("#zipErrorMessage").html("Please enter your zipcode!");
+				$("#zipErrorMessage").show();
+				$("#zipcode").css({"border" : "2px solid red"});
+				zipError = true;
+			}else{
+				$("#zipErrorMessage").hide();
+				$("#zipcode").css({"border" : "2px solid green"});
+			}
+		});
+
+		$("#comments").focusout(function(){
+			var comments = $("#comments").val();
+			if(comments == ""){
+				$("#commentsErrorMessage").html("Please enter your comments!");
+				$("#commentsErrorMessage").show();
+				$("#comments").css({"border" : "2px solid red"});
+				commentsError = true;
+			}else{
+				$("#commentsErrorMessage").hide();
+				$("#comments").css({"border" : "2px solid green"});
+			}
+		});
+
+		$("#submitBtn").click(function(){
+			if(!$("input[name = title]").is(":checked")){
+				$("#titleErrorMessage").html("Please select title!");
+				$("#titleErrorMessage").show();
+				return false;
+			}else{
+				$("#titleErrorMessage").hide();
+			}
+
+			if(!$("input[name = source]").is(":checked")){
+				$("#sourceErrorMessage").html("Please select source!");
+				$("#sourceErrorMessage").show();
+				return false;
+			}else{
+				$("#sourceErrorMessage").hide();
+			}
+		});
+	})
+ </script>
+ <body>
+ <div id="container"> 
+	 
+	 <main>
+	 <h2>Feeback</h2>
+	 <h3>Love something? Hate something? Let us know!</h3>
+		 Note : Fields marked with an asterisk(*) are mandatory
+		 <br><br>
+		 <form id="feedback" method="post" novalidate>
+			<label>Title*:</label>
+			<input type="radio" name="title" id="miss" value="miss" required="required"/>Miss
+			<input type="radio" name="title" id="mr" value="mr" required="required"/>Mr.
+			<input type="radio" name="title" id="mrs" value="mrs" required="required"/>Mrs.
+			<span id="titleErrorMessage"></span>
+			<br><br>
+
+			<label for="firstName">First Name*:</label>
+			<input type="text" name="firstName" id="firstName" placeholder="First Name" required="required"/>
+			<span id="firstNameErrorMessage"></span>
+			<br><br>
+
+			<label for="lastName">Last Name*:</label>
+			<input type="text" name="lastName" id="lastName" placeholder="Last Name" required="required"/>
+			<span id="lastNameErrorMessage"></span>
+			<br><br>
+
+
+			<label for="emailId">Email Id*:</label>
+			<input type="text" name="emailId" id="emailId" placeholder="yourname@domain.com" />
+			<span id="emailErrorMessage"></span>
+			<br><br>
+
+			
+
+			<label for="phoneNumber">Phone Number*:</label>
+			<input type="text" name="phoneNumber" id="phoneNumber" placeholder="xxx-xxx-xxxx" />
+			<span id="phoneErrorMessage"></span>
+			<br><br>
+
+			
+            <label for="zipcode">ZipCode*:</label>
+			<input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" />
+			<span id="zipErrorMessage"></span>
+			<br><br>
+
+
+             
+            <label for="zipcode">How did you hear*:</label>
+			<input type='checkbox' name="source" value="facebook" id="source"/> Facebook
+            <input type='checkbox' name="source" value="google" id="source"/> Google
+            <input type='checkbox' name="source" value="yelp" id="source"/> Yelp 
+			<span id="sourceErrorMessage"></span>
+			<br><br> 
+             
+			<label for="comments">Comments*:</label>
+			<textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25"></textarea>
+			<span id="commentsErrorMessage"></span>
+			<br><br>
+
+
+			<input type="Submit" id="submitBtn">
+			<input type="Reset" id="resetBtn">
+			<br><br>
+			
+		 </form>
+	 </main>
+ </div>
+
+ <script>
+ 
+ </script>
+
+ </body>
+</html>
